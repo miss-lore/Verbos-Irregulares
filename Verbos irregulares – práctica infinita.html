@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="es"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Verbos irregulares – práctica infinita</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap">
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);color-scheme:light;--bg1:#faf7f0;--bg2:#f0efe2;--card:#fffdf9;--field:#f6f2ea;--tx:#3b2f26;--mut:#8f8576;--bd:#e9e2d4;--ok:#5f7a3a;--okb:#e8eed9;--no:#b5523b;--nob:#f7e4dd;--ac:#7a5638;--ac2:#a67c52;--c1:#7a5638;--c2:#6b7a3a;--c3:#b0734f;--t1:#f1e8dc;--t2:#eaeedb;--t3:#f3e6dd;--sh:0 28px 60px -26px #7a563866,0 1px 3px #3b2f2610}
+*{box-sizing:border-box}
+body{margin:0;background:linear-gradient(145deg,var(--bg1),var(--bg2)) fixed;color:var(--tx);font-family:"Montserrat",system-ui,-apple-system,"Segoe UI",sans-serif;min-height:100vh;display:flex;justify-content:center;align-items:flex-start;padding:24px 16px}
+main{width:100%;max-width:480px}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:16px}
+.stats div{background:var(--card);border:1px solid var(--bd);border-radius:18px;box-shadow:0 1px 3px #1f2a4410;padding:10px 4px;text-align:center;font-size:11px;letter-spacing:.04em;text-transform:uppercase;color:var(--mut)}
+.stats b{display:block;font-size:24px;letter-spacing:0;color:var(--tx);font-variant-numeric:tabular-nums}
+.stats div:nth-child(1) b{color:var(--ok)}.stats div:nth-child(2) b{color:var(--no)}.stats div:nth-child(3) b{color:var(--c1)}.stats div:nth-child(4) b{color:var(--c3)}
+.stats div:nth-child(1){background:var(--okb)}.stats div:nth-child(2){background:var(--nob)}.stats div:nth-child(3){background:var(--t1)}.stats div:nth-child(4){background:var(--t2)}
+.stats div{border-color:transparent}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:28px;padding:28px 24px 24px;box-shadow:var(--sh)}
+.lbl{display:inline-block;font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--ac);background:var(--field);border:1px solid var(--bd);padding:4px 10px;border-radius:99px}
+h1{font-size:46px;line-height:1.1;margin:14px 0 14px;font-weight:800;letter-spacing:-.03em;background:linear-gradient(90deg,var(--ac),var(--ac2));-webkit-background-clip:text;background-clip:text;color:transparent}
+label{display:block;font-size:12px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--mut);margin:16px 0 6px}
+input{width:100%;font-size:18px;padding:14px 16px;border:2px solid transparent;border-radius:16px;background:var(--field);color:var(--tx);outline:none;transition:border-color .15s,box-shadow .15s,background .15s}
+input:focus{border-color:var(--ac);box-shadow:0 0 0 4px color-mix(in srgb,var(--ac) 22%,transparent)}
+input.ok{border-color:var(--ok);background:var(--okb);color:var(--ok);font-weight:600}
+input.no{border-color:var(--no);background:var(--nob);animation:shake .35s}
+@keyframes shake{25%{transform:translateX(-5px)}50%{transform:translateX(5px)}75%{transform:translateX(-3px)}}
+.fix{font-size:13px;font-weight:600;color:var(--no);margin-top:5px}
+.fix:empty{display:none}
+button{width:100%;margin-top:26px;font-size:17px;padding:16px;border:0;border-radius:16px;background:linear-gradient(90deg,var(--ac),var(--ac2));color:#fff;font-weight:700;letter-spacing:.01em;cursor:pointer;box-shadow:0 10px 24px -10px var(--ac);transition:transform .12s,filter .15s}
+button:hover{filter:brightness(1.08)}button:active{transform:scale(.98)}
+button:focus-visible{outline:3px solid color-mix(in srgb,var(--ac) 40%,transparent);outline-offset:3px}
+.hint{text-align:center;font-size:12px;color:var(--mut);margin-top:14px}
+body::before,body::after{content:"";position:fixed;z-index:-1;border-radius:50%;filter:blur(70px);opacity:.45;pointer-events:none}
+body::before{width:360px;height:360px;background:#e6d9c6;top:-90px;left:-90px}
+body::after{width:340px;height:340px;background:#dfe5c8;bottom:-90px;right:-80px}
+.top{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+.top span{font-weight:700;font-size:16px;letter-spacing:-.01em}
+.gear{width:42px;height:42px;margin:0;padding:0;font-size:20px;border-radius:14px;background:var(--card);color:var(--mut);border:1px solid var(--bd);box-shadow:0 1px 3px #1f2a4410;transition:transform .3s}
+.gear:hover{filter:none;transform:rotate(60deg)}
+.panel{display:flex;flex-wrap:wrap;gap:8px;align-items:center;background:var(--card);border:1px solid var(--bd);border-radius:20px;padding:14px;margin-bottom:14px;box-shadow:var(--sh)}
+.panel[hidden]{display:none}
+.panel p{width:100%;margin:0 0 2px;font-size:12px;color:var(--mut)}
+input,button{font-family:inherit}
+.opt{display:flex;align-items:flex-start;gap:12px;width:100%;margin:0;padding:10px 4px;cursor:pointer;text-transform:none;letter-spacing:0;font-size:inherit;color:var(--tx)}
+.opt input{display:none}
+.sw{flex:none;width:38px;height:22px;border-radius:99px;background:#ddd4c5;position:relative;transition:background .2s;margin-top:1px}
+.sw::after{content:"";position:absolute;top:2px;left:2px;width:18px;height:18px;border-radius:50%;background:#fff;box-shadow:0 1px 3px #0003;transition:transform .2s}
+.opt:has(input:checked) .sw{background:var(--ac)}
+.opt:has(input:checked) .sw::after{transform:translateX(16px)}
+.opt b{display:block;font-size:14px;font-weight:700}
+.opt small{display:block;font-size:12px;font-weight:500;color:var(--mut);margin-top:2px;line-height:1.35}
+.card{position:relative;overflow:hidden;padding-top:32px}
+.card::before{content:"";position:absolute;inset:0 0 auto 0;height:7px;background:linear-gradient(90deg,var(--c1),var(--ac2),var(--c2),var(--c3))}
+.lbl{background:var(--t1);border-color:transparent}
+label[for]::before{content:"";display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:8px;background:var(--c1)}
+label[for=pp]::before{background:var(--c2)}label[for=m]::before{background:var(--c3)}
+#p:focus{border-color:var(--c1);box-shadow:0 0 0 4px color-mix(in srgb,var(--c1) 22%,transparent)}
+#pp:focus{border-color:var(--c2);box-shadow:0 0 0 4px color-mix(in srgb,var(--c2) 24%,transparent)}
+#m:focus{border-color:var(--c3);box-shadow:0 0 0 4px color-mix(in srgb,var(--c3) 24%,transparent)}
+.top span{font-weight:800;background:linear-gradient(90deg,var(--c1),var(--ac2));-webkit-background-clip:text;background-clip:text;color:transparent}
+.panel{border-color:transparent}
+</style></head><body><main>
+<div class="top"><span>Verbos irregulares</span><button class="gear" id="cfg" aria-label="Configuración" title="Configuración">⚙</button></div>
+<div class="panel" id="panel" hidden>
+<label class="opt"><input type="checkbox" data-k="p"><i class="sw"></i><span><b>Pasado simple</b><small>Escribe el pasado simple de cada verbo.</small></span></label>
+<label class="opt"><input type="checkbox" data-k="pp"><i class="sw"></i><span><b>Participio</b><small>Escribe el participio pasado de cada verbo.</small></span></label>
+<label class="opt"><input type="checkbox" data-k="m"><i class="sw"></i><span><b>Significado</b><small>Escribe qué significa el verbo en español.</small></span></label></div>
+<div class="stats"><div><b id="sOk">0</b>aciertos</div><div><b id="sBad">0</b>errores</div><div><b id="sStreak">0</b>racha</div><div><b id="sLeft">0</b>en la ronda</div></div>
+<div class="card">
+<div class="lbl">Infinitivo</div><h1 id="inf"></h1>
+<label for="p">Pasado simple</label><input id="p" autocomplete="off" autocapitalize="off" spellcheck="false"><div class="fix" id="fp"></div>
+<label for="pp">Participio</label><input id="pp" autocomplete="off" autocapitalize="off" spellcheck="false"><div class="fix" id="fpp"></div>
+<label for="m">Significado (español)</label><input id="m" autocomplete="off" autocapitalize="off" spellcheck="false"><div class="fix" id="fm"></div>
+<button id="go">Comprobar</button>
+<div class="hint">Enter para pasar de campo y comprobar · luego Enter para el siguiente</div>
+</div></main>
+<script>
+const RAW=`arise|arose|arisen|levantarse
+awake|awoke|awoke|despertar
+be|was/were|been|ser/estar
+bear|bore|born/borne|soportar
+become|became|become|llegar a ser/convertirse
+begin|began|begun|comenzar/empezar
+bet|bet|bet|apostar
+bind|bound|bound|unir/atar
+bleed|bled|bled|sangrar
+blow|blew|blown|soplar
+break|broke|broken|romper
+bring|brought|brought|traer
+build|built|built|edificar/construir
+burn|burnt/burned|burnt/burned|quemar
+buy|bought|bought|comprar
+can|could|could|poder
+catch|caught|caught|agarrar/atrapar
+choose|chose|chosen|elegir
+cling|clung|clung|adherirse
+come|came|come|venir
+cost|cost|cost|costar
+creep|crept|crept|arrastrarse
+cut|cut|cut|cortar
+deal|dealt|dealt|distribuir/tratar
+dig|dug|dug|cavar
+do|did|done|hacer
+draw|drew|drawn|dibujar
+dream|dreamt/dreamed|dreamt/dreamed|soñar
+drink|drank|drunk|beber
+drive|drove|driven|conducir/manejar
+eat|ate|eaten|comer
+fall|fell|fallen|caer
+feed|fed|fed|alimentar
+feel|felt|felt|sentir
+fight|fought|fought|luchar/pelear
+find|found|found|encontrar
+fly|flew|flown|volar
+forbid|forbade/forbad|forbidden|prohibir
+forget|forgot|forgotten|olvidar
+freeze|froze|frozen|congelar
+get|got|got/gotten|obtener/conseguir
+give|gave|given|dar
+go|went|gone|ir
+grind|ground|ground|moler
+grow|grew|grown|crecer
+hang|hung|hung|colgar
+have|had|had|tener
+hear|heard|heard|oír/escuchar
+hide|hid|hidden|esconder
+hit|hit|hit|golpear
+hold|held|held|sostener
+hurt|hurt|hurt|lastimar
+keep|kept|kept|guardar/mantener
+know|knew|known|saber/conocer
+lay|laid|laid|colocar
+lead|led|led|liderar/guiar
+learn|learnt/learned|learnt/learned|aprender
+leave|left|left|dejar
+lend|lent|lent|prestar
+let|let|let|permitir/dejar
+lie|lay|lain|acostar/acostarse
+light|lit|lit|encender
+lose|lost|lost|perder
+make|made|made|hacer
+may|might|might|poder
+mean|meant|meant|significar
+meet|met|met|encontrarse/conocer
+mistake|mistook|mistaken|equivocar/equivocarse
+pay|paid|paid|pagar
+put|put|put|poner
+read|read|read|leer
+ride|rode|ridden|montar
+ring|rang|rung|sonar
+rise|rose|risen|subir
+run|ran|run|correr
+say|said|said|decir
+see|saw|seen|ver
+seek|sought|sought|buscar
+sell|sold|sold|vender
+send|sent|sent|enviar
+set|set|set|poner
+shake|shook|shaken|temblar/sacudir
+shine|shone|shone|brillar
+shoot|shot|shot|disparar
+show|showed|shown/showed|mostrar
+shrink|shrank|shrunk/shrunken|encoger
+shut|shut|shut|cerrar
+sing|sang|sung|cantar
+sink|sank|sunk|hundir
+sit|sat|sat|sentarse
+sleep|slept|slept|dormir
+slide|slid|slid|resbalar/deslizar
+speak|spoke|spoken|hablar
+spend|spent|spent|gastar
+spread|spread|spread|expandir/esparcir
+spring|sprang|sprung|brotar
+stand|stood|stood|estar de pie/sostenerse
+steal|stole|stolen|robar
+stick|stuck|stuck|pegar
+sting|stung|stung|picar
+strike|struck|struck|golpear
+swear|swore|sworn|jurar
+sweep|swept|swept|barrer
+swell|swelled|swollen/swelled|hinchar
+swing|swung|swung|balancear
+swim|swam|swum|nadar
+take|took|taken|tomar
+teach|taught|taught|enseñar
+tear|tore|torn|rasgar
+tell|told|told|decir/contar
+think|thought|thought|pensar
+throw|threw|thrown|lanzar
+wake|woke|woken|despertar
+wear|wore|worn|llevar puesto/llevar/vestir
+weep|wept|wept|llorar
+win|won|won|ganar
+wind|wound|wound|enrollar
+write|wrote|written|escribir`;
+const V=RAW.split("\n").map(l=>{const[a,b,c,d]=l.split("|");return{inf:a,p:b.split("/"),pp:c.split("/"),m:d.split("/")}});
+const $=id=>document.getElementById(id);
+const norm=s=>s.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/\s+/g," ").trim();
+const shuffle=a=>{for(let i=a.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[a[i],a[j]]=[a[j],a[i]]}return a};
+let bag=[],cur=null,last=null,checked=false,ok=0,bad=0,streak=0;
+const F=[["p","fp","p"],["pp","fpp","pp"],["m","fm","m"]];
+function next(){
+  if(!bag.length){bag=shuffle(V.slice());if(bag[bag.length-1]===last&&bag.length>1)bag.unshift(bag.pop())}
+  cur=bag.pop();last=cur;checked=false;
+  $("inf").textContent=cur.inf;
+  F.forEach(([i,f])=>{$(i).value="";$(i).className="";$(i).disabled=false;$(f).textContent=""});
+  $("go").textContent="Comprobar";$("sLeft").textContent=bag.length;$(act()[0][0]).focus();
+}
+function check(){
+  let all=true;
+  act().forEach(([i,f,k])=>{
+    const good=cur[k].map(norm).includes(norm($(i).value));
+    $(i).className=good?"ok":"no";$(i).disabled=true;
+    if(!good){all=false;$(f).textContent="Correcto: "+cur[k].join(" / ")}
+  });
+  if(all){ok++;streak++}else{bad++;streak=0;bag.splice(Math.max(0,bag.length-(3+Math.random()*5|0)),0,cur)}
+  $("sOk").textContent=ok;$("sBad").textContent=bad;$("sStreak").textContent=streak;$("sLeft").textContent=bag.length;
+  checked=true;$("go").textContent="Siguiente →";$("go").focus();
+}
+$("go").onclick=()=>checked?next():check();
+document.addEventListener("keydown",e=>{
+  if(e.key!=="Enter"||e.target.type==="checkbox"||e.target.id==="cfg")return;e.preventDefault();
+  if(checked){next();return}
+  const order=act().map(f=>f[0]),i=order.indexOf(document.activeElement.id);
+  if(i>=0&&i<order.length-1)$(order[i+1]).focus();else check();
+});
+const on={p:true,pp:true,m:true};
+const act=()=>F.filter(f=>on[f[0]]);
+try{Object.assign(on,JSON.parse(localStorage.getItem("vcfg")||"{}"))}catch(e){}
+if(!act().length)on.p=true;
+function apply(){F.forEach(([i,f])=>{const s=on[i]?"":"none";$(i).style.display=s;$(f).style.display=s;document.querySelector('label[for="'+i+'"]').style.display=s});
+  document.querySelectorAll("#panel input").forEach(c=>c.checked=on[c.dataset.k])}
+document.querySelectorAll("#panel input").forEach(c=>c.onchange=()=>{
+  const k=c.dataset.k;on[k]=c.checked;
+  if(!act().length){on[k]=true;c.checked=true;return}
+  try{localStorage.setItem("vcfg",JSON.stringify(on))}catch(e){}
+  apply();next()});
+$("cfg").onclick=()=>{$("panel").hidden=!$("panel").hidden};
+apply();
+next();
+</script></body></html>
